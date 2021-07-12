@@ -79,7 +79,7 @@ class HomeWidgetPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             "updateWidget" -> {
                 val className = call.argument<String>("android") ?: call.argument<String>("name")
                 try {
-                    val javaClass = Class.forName("${context.packageName}.${className}")
+                    val javaClass = Class.forName(className)
                     val intent = Intent(context, javaClass)
                     intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
                     val ids: IntArray = AppWidgetManager.getInstance(context.applicationContext).getAppWidgetIds(ComponentName(context, javaClass))
