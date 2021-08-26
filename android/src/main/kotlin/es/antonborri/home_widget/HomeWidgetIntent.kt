@@ -24,10 +24,13 @@ object HomeWidgetBackgroundIntent {
     private const val HOME_WIDGET_BACKGROUND_ACTION = "es.antonborri.home_widget.action.BACKGROUND"
 
     fun getBroadcast(context: Context, uri: Uri? = null): PendingIntent {
+        return PendingIntent.getBroadcast(context, 0, getBroadcastIntent(context, uri), PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
+    fun getBroadcastIntent(context: Context, uri: Uri? = null): Intent {
         val intent = Intent(context, HomeWidgetBackgroundReceiver::class.java)
         intent.data = uri
         intent.action = HOME_WIDGET_BACKGROUND_ACTION
-
-        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return intent
     }
 }
