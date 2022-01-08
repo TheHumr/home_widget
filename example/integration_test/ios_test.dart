@@ -60,5 +60,37 @@ void main() {
         expect(returnValue, defaultValue.value);
       });
     });
+
+    testWidgets('Update Widget completes', (tester) async {
+      final returnValue = await HomeWidget.updateWidget(
+        name: 'HomeWidgetExampleProvider',
+        iOSName: 'HomeWidgetExample',
+      ).timeout(Duration(seconds: 5));
+
+      expect(returnValue, true);
+    });
+
+    group('Initially Launched', () {
+      testWidgets(
+          'Initially Launched completes and returns null if not launched from widget',
+          (tester) async {
+        await HomeWidget.setAppGroupId('group.es.antonborri.integrationtest');
+        final retrievedData =
+            await HomeWidget.initiallyLaunchedFromHomeWidget();
+        expect(retrievedData, isNull);
+      });
+
+      group('Register Backgorund Callback', () {
+        testWidgets('RegisterBackgroundCallback completes without error',
+            (tester) async {
+          await HomeWidget.setAppGroupId('group.es.antonborri.integrationtest');
+          final registerCallbackResult =
+              await HomeWidget.registerBackgroundCallback(backgroundCallback);
+          expect(registerCallbackResult, isNull);
+        });
+      });
+    });
   });
 }
+
+void backgroundCallback(Uri uri) {}

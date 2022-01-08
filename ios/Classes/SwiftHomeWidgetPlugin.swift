@@ -91,6 +91,7 @@ public class SwiftHomeWidgetPlugin: NSObject, FlutterPlugin, FlutterStreamHandle
                 if #available(iOS 14.0, *) {
                     #if arch(arm64) || arch(i386) || arch(x86_64)
                         WidgetCenter.shared.reloadTimelines(ofKind:name)
+                        result(true)
                     #endif
                 } else {
                     result(FlutterError(code: "-4", message: "Widgets are only available on iOS 14.0 and above", details: nil))
@@ -103,9 +104,9 @@ public class SwiftHomeWidgetPlugin: NSObject, FlutterPlugin, FlutterStreamHandle
                 result(notInitializedError)
                 return
             }
-            if(initialUrl != nil) {
-                result(initialUrl?.absoluteString)
-            }
+            result(initialUrl?.absoluteString)
+        } else if call.method == "registerBackgroundCallback" {
+            result(nil)
         } else {
             result(FlutterMethodNotImplemented)
         }
@@ -134,8 +135,9 @@ public class SwiftHomeWidgetPlugin: NSObject, FlutterPlugin, FlutterStreamHandle
     public func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if(isWidgetUrl(url: url)) {
             latestUrl = url
+            return true
         }
-        return true
+        return false
     }
     
     private func isWidgetUrl(url: URL) -> Bool {

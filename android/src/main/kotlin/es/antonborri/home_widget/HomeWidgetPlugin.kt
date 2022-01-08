@@ -95,14 +95,14 @@ class HomeWidgetPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             }
             "initiallyLaunchedFromHomeWidget" -> {
                 return if (activity?.intent?.action?.equals(HomeWidgetLaunchIntent.HOME_WIDGET_LAUNCH_ACTION) == true) {
-                    result.success(activity?.intent?.data?.toString() ?: true)
+                    result.success(activity?.intent?.data?.toString() ?: "")
                 } else {
                     result.success(null)
                 }
             }
             "registerBackgroundCallback" -> {
-                val dispatcher = (call.arguments as Iterable<*>).toList()[0] as Long
-                val callback = (call.arguments as Iterable<*>).toList()[1] as Long
+                val dispatcher = ((call.arguments as Iterable<*>).toList()[0] as Number).toLong()
+                val callback = ((call.arguments as Iterable<*>).toList()[1] as Number).toLong()
                 saveCallbackHandle(context, dispatcher, callback)
                 return result.success(true)
             }
