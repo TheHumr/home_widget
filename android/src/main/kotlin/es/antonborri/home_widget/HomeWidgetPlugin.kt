@@ -77,9 +77,10 @@ class HomeWidgetPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                 }
             }
             "updateWidget" -> {
+                val qualifiedName = call.argument<String>("qualifiedAndroidName")
                 val className = call.argument<String>("android") ?: call.argument<String>("name")
                 try {
-                    val javaClass = Class.forName(className)
+                    val javaClass = Class.forName(qualifiedName ?: "${context.packageName}.${className}")
                     val intent = Intent(context, javaClass)
                     intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
                     val ids: IntArray = AppWidgetManager.getInstance(context.applicationContext).getAppWidgetIds(ComponentName(context, javaClass))
@@ -190,7 +191,7 @@ class HomeWidgetPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         }
     }
 
-    override fun onNewIntent(intent: Intent?): Boolean {
+    override fun onNewIntent(intent: Intent): Boolean {
         receiver?.onReceive(context, intent)
         return receiver != null
     }

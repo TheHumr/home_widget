@@ -19,9 +19,9 @@ In order to work correctly there needs to be some platform specific setup. Check
 
 <details><summary>Android</summary>
 
-### Create Widget Layout inside `android/app/res/layout`
+### Create Widget Layout inside `android/app/src/main/res/layout`
 
-### Create Widget Configuration into `android/app/res/xml`
+### Create Widget Configuration into `android/app/src/main/res/xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
@@ -122,10 +122,12 @@ HomeWidget.updateWidget(
     name: 'HomeWidgetExampleProvider',
     androidName: 'HomeWidgetExampleProvider',
     iOSName: 'HomeWidgetExample',
+    qualifiedAndroidName: 'com.example.app.HomeWidgetExampleProvider',
 );
 ```
 
-The name for Android will be chosen by checking `androidName` if that was not provided it will fallback to `name`.
+The name for Android will be chosen by checking `qualifiedAndroidName`, falling back to `<packageName>.androidName` and if that was not provided it 
+will fallback to `<packageName>.name`.
 This Name needs to be equal to the Classname of the [WidgetProvider](#Write-your-Widget)
 
 The name for iOS will be chosen by checking `iOSName` if that was not provided it will fallback to `name`.

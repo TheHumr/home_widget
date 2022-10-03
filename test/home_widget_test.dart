@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
@@ -78,6 +77,7 @@ void main() {
         name: 'name',
         androidName: 'androidName',
         iOSName: 'iOSName',
+        qualifiedAndroidName: 'com.example.androidName',
       ),
       true,
     );
@@ -87,6 +87,7 @@ void main() {
     expect(arguments['name'], 'name');
     expect(arguments['android'], 'androidName');
     expect(arguments['ios'], 'iOSName');
+    expect(arguments['qualifiedAndroidName'], 'com.example.androidName');
   });
 
   group('initiallyLaunchedFromHomeWidget', () {
@@ -140,6 +141,7 @@ void main() {
   group('Widget Clicked', () {
     test('Send Uris to Stream', () async {
       updateChannel.binaryMessenger.setMockMessageHandler(updateChannel.name,
+          // ignore: body_might_complete_normally_nullable
           (message) async {
         emitEvent(
           updateChannel.codec
