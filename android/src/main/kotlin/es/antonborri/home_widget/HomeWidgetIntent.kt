@@ -30,15 +30,19 @@ object HomeWidgetBackgroundIntent {
     private const val HOME_WIDGET_BACKGROUND_ACTION = "es.antonborri.home_widget.action.BACKGROUND"
 
     fun getBroadcast(context: Context, uri: Uri? = null): PendingIntent {
-        val intent = Intent(context, HomeWidgetBackgroundReceiver::class.java)
-        intent.data = uri
-        intent.action = HOME_WIDGET_BACKGROUND_ACTION
 
         var flags = PendingIntent.FLAG_UPDATE_CURRENT
         if (Build.VERSION.SDK_INT >= 23) {
             flags = flags or PendingIntent.FLAG_IMMUTABLE
         }
 
-        return PendingIntent.getBroadcast(context, 0, intent, flags)
+        return PendingIntent.getBroadcast(context, 0, getBroadcastIntent(context, uri), flags)
+    }
+
+    fun getBroadcastIntent(context: Context, uri: Uri? = null): Intent {
+        val intent = Intent(context, HomeWidgetBackgroundReceiver::class.java)
+        intent.data = uri
+        intent.action = HOME_WIDGET_BACKGROUND_ACTION
+        return intent
     }
 }
