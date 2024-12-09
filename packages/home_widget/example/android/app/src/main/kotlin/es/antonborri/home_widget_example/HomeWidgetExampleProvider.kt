@@ -17,11 +17,12 @@ class HomeWidgetExampleProvider : HomeWidgetProvider() {
       context: Context,
       appWidgetManager: AppWidgetManager,
       appWidgetIds: IntArray,
-      widgetData: SharedPreferences
+      isLoading: Boolean
   ) {
     appWidgetIds.forEach { widgetId ->
       val views =
           RemoteViews(context.packageName, R.layout.example_layout).apply {
+              val widgetData: SharedPreferences = HomeWidgetPlugin.getData(context)
             // Open App on Widget Click
             val pendingIntent =
                 HomeWidgetLaunchIntent.getActivity(context, MainActivity::class.java)

@@ -13,13 +13,13 @@ abstract class HomeWidgetProvider : AppWidgetProvider() {
       appWidgetIds: IntArray
   ) {
     super.onUpdate(context, appWidgetManager, appWidgetIds)
-    onUpdate(context, appWidgetManager, appWidgetIds, HomeWidgetPlugin.getData(context))
+    onUpdate(context, appWidgetManager, appWidgetIds, false)
   }
 
   abstract fun onUpdate(
       context: Context,
       appWidgetManager: AppWidgetManager,
       appWidgetIds: IntArray,
-      widgetData: SharedPreferences
+      isLoading: Boolean
   )
 }
