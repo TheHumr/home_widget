@@ -16,6 +16,17 @@ Add a widget extension by going <kbd>File</kbd> > <kbd>New</kbd> > <kbd>Target</
 
 ![Widget Extension](https://github.com/ABausG/home_widget/blob/main/.github/assets/widget_extension.png?raw=true)
 
+Fill in your desired name for the Widget
+![Setting up the Extension](/assets/create-widget-extension-ios.webp)
+
+<Info>
+This documentation is based on a non-configurable Widget. Leave the <kbd>Include Configuration App Intent</kbd> option unchecked to follow this example.
+
+If you want build configurable widgets with home_widget follow the [documentation for configurable widgets](/features/configurable-widgets).
+
+However it is advised to read through this page as well, as there are concepts that will be referenced in the other documentation.
+</Info>
+
 The generated Widget code includes the following classes:
 - `TimelineProvider` - Provides a Timeline of entries at which the System will update the Widget automatically
 - `TimelineEntry` - Represents the Data Object used to build the Widget. The `date` field is necessary and defines the point in time at which the Timeline would update
@@ -40,8 +51,8 @@ struct CounterEntry: TimelineEntry {
 Adjust the `TimelineProvider` to build a timeline (can be single entry if all updating is always handled from Flutter) where you create a `TimelineEntry` based on the Data stored with `HomeWidget.saveWidgetData`
 ```swift
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), counter: 0)
+    func placeholder(in context: Context) -> CounterEntry {
+        CounterEntry(date: Date(), counter: 0)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
@@ -94,7 +105,32 @@ To swap between your App, and the Extension change the Target)
 For iOS, you need to call `HomeWidget.setAppGroupId('YOUR_GROUP_ID');`
 Without this you won't be able to share data between your App and the Widget and calls to `saveWidgetData` and `getWidgetData` will return an error
 
-## Sync CFBundleVersion (optional)
+
+## Troubleshooting
+
+<Accordion title="Fix Build Cycle Error with Thin Binary">
+If you encounter a build cycle error related to the "Thin Binary" script phase when building your app with a widget extension, you need to reorder the build phases in Xcode.
+
+The error typically looks like:
+```
+Cycle details:
+→ Target 'Runner' has copy command from '.../WidgetExtension.appex' to '.../Runner.app/PlugIns/WidgetExtension.appex'
+○ That command depends on command in Target 'Runner': script phase "Thin Binary"
+```
+
+To fix this:
+
+1. In Xcode, select your **Runner** target
+2. Go to <kbd>Build Phases</kbd>
+3. Find the **"Thin Binary"** script phase
+4. Drag it to the **bottom** of the build phases list (it should be the last phase)
+
+The "Thin Binary" script phase should run after all other build phases, including the copy phase that embeds the widget extension into your app bundle.
+</Accordion>
+
+## Bonus
+
+<Accordion title="Sync CFBundleVersion (optional)">
 This step is optional, this will sync the widget extension build version with your app version, so you don't get warnings of mismatch version from App Store Connect when uploading your app.
 
 ![Build Phases](https://github.com/ABausG/home_widget/blob/main/.github/assets/build_phases.png?raw=true)
@@ -128,3 +164,4 @@ fi
 ```
 
 Replace `HomeExampleWidget` with the name of the widget extension folder that you have created.
+</Accordion>

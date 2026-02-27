@@ -63,7 +63,8 @@ class HomeWidgetPlugin :
                   result.error(
                       "-10",
                       "Invalid Type ${data!!::class.java.simpleName}. Supported types are Boolean, Float, String, Double, Long",
-                      IllegalArgumentException())
+                      IllegalArgumentException(),
+                  )
             }
           } else {
             prefs.remove(id)
@@ -74,7 +75,8 @@ class HomeWidgetPlugin :
           result.error(
               "-1",
               "InvalidArguments saveWidgetData must be called with id and data",
-              IllegalArgumentException())
+              IllegalArgumentException(),
+          )
         }
       }
       "getWidgetData" -> {
@@ -95,7 +97,8 @@ class HomeWidgetPlugin :
           result.error(
               "-2",
               "InvalidArguments getWidgetData must be called with id",
-              IllegalArgumentException())
+              IllegalArgumentException(),
+          )
         }
       }
       "updateWidget" -> {
@@ -109,23 +112,25 @@ class HomeWidgetPlugin :
               AppWidgetManager.getInstance(context.applicationContext)
                   .getAppWidgetIds(ComponentName(context, javaClass))
           intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+          intent.putExtra(HomeWidgetPlugin.TRIGGERED_FROM_HOME_WIDGET, true)
           context.sendBroadcast(intent)
           result.success(true)
         } catch (classException: ClassNotFoundException) {
           result.error(
               "-3",
               "No Widget found with Name $className. Argument 'name' must be the same as your AppWidgetProvider you wish to update",
-              classException)
+              classException,
+          )
         }
       }
       "setAppGroupId" -> {
         result.success(true)
       }
       "initiallyLaunchedFromHomeWidget" -> {
-        return if (activity
-            ?.intent
-            ?.action
-            ?.equals(HomeWidgetLaunchIntent.HOME_WIDGET_LAUNCH_ACTION) == true) {
+        return if (
+            activity?.intent?.action?.equals(HomeWidgetLaunchIntent.HOME_WIDGET_LAUNCH_ACTION) ==
+                true
+        ) {
           result.success(activity?.intent?.data?.toString() ?: "")
         } else {
           result.success(null)
@@ -168,7 +173,8 @@ class HomeWidgetPlugin :
           result.error(
               "-4",
               "No Widget found with Name $className. Argument 'name' must be the same as your AppWidgetProvider you wish to update",
-              classException)
+              classException,
+          )
         }
       }
       "getInstalledWidgets" -> {
@@ -217,7 +223,8 @@ class HomeWidgetPlugin :
     return mapOf(
         WIDGET_INFO_KEY_WIDGET_ID to widgetId,
         WIDGET_INFO_KEY_ANDROID_CLASS_NAME to widgetInfo.provider.shortClassName,
-        WIDGET_INFO_KEY_LABEL to label)
+        WIDGET_INFO_KEY_LABEL to label,
+    )
   }
 
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
@@ -234,6 +241,8 @@ class HomeWidgetPlugin :
     private const val WIDGET_INFO_KEY_WIDGET_ID = "widgetId"
     private const val WIDGET_INFO_KEY_ANDROID_CLASS_NAME = "androidClassName"
     private const val WIDGET_INFO_KEY_LABEL = "label"
+
+    const val TRIGGERED_FROM_HOME_WIDGET = "triggeredFromHomeWidget"
 
     private fun saveCallbackHandle(context: Context, dispatcher: Long, handle: Long) {
       context

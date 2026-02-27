@@ -1,6 +1,7 @@
 version: "0.2"
 ignorePaths:
     [
+        "**/build/**",
         "**/coverage",
         "**/*.xcscheme",
         "**/*.storyboard",
@@ -23,6 +24,9 @@ ignorePaths:
         "cspell.yaml",
         "**/build.gradle",
         "**/proguard-rules.pro",
+        "**/.github/**",
+        "**/.gitignore",
+        "**/*.intentdefinition"
     ]
 dictionaries:
   - names
@@ -64,3 +68,15 @@ words:
     - libexec
     - SRCROOT
     - Codelab
+    - pubspec
+    - Siri
+    - sirikit
+    - objc
+    - typealias
+    - widgetconfigurationintent
+    - xcodeproj
+    - pbxproj
+    - xcworkspace
+    - Codemagic
+    - lockscreen
+    - codesign

@@ -1,7 +1,5 @@
 package es.antonborri.home_widget_example.glance
 
-import HomeWidgetGlanceState
-import HomeWidgetGlanceStateDefinition
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -29,6 +27,8 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import es.antonborri.home_widget.HomeWidgetBackgroundIntent
+import es.antonborri.home_widget.HomeWidgetGlanceState
+import es.antonborri.home_widget.HomeWidgetGlanceStateDefinition
 import es.antonborri.home_widget.actionStartActivity
 import es.antonborri.home_widget_example.MainActivity
 
@@ -53,34 +53,37 @@ class HomeWidgetGlanceAppWidget : GlanceAppWidget() {
         modifier =
             GlanceModifier.background(Color.White)
                 .padding(16.dp)
-                .clickable(onClick = actionStartActivity<MainActivity>(context))) {
-          Column(
-              modifier = GlanceModifier.fillMaxSize(),
-              verticalAlignment = Alignment.Vertical.Top,
-              horizontalAlignment = Alignment.Horizontal.Start,
-          ) {
-            Text("Glance")
-            Text(
-                title,
-                style = TextStyle(fontSize = 36.sp, fontWeight = FontWeight.Bold),
-                modifier =
-                    GlanceModifier.clickable(onClick = actionRunCallback<InteractiveAction>()),
-            )
-            Text(
-                message,
-                style = TextStyle(fontSize = 18.sp),
-                modifier =
-                    GlanceModifier.clickable(
-                        onClick =
-                            actionStartActivity<MainActivity>(
-                                context,
-                                Uri.parse("homeWidgetExample://message?message=$message"))))
-            imagePath?.let {
-              val bitmap = BitmapFactory.decodeFile(it)
-              Image(androidx.glance.ImageProvider(bitmap), null)
-            }
-          }
+                .clickable(onClick = actionStartActivity<MainActivity>(context))
+    ) {
+      Column(
+          modifier = GlanceModifier.fillMaxSize(),
+          verticalAlignment = Alignment.Vertical.Top,
+          horizontalAlignment = Alignment.Horizontal.Start,
+      ) {
+        Text("Glance")
+        Text(
+            title,
+            style = TextStyle(fontSize = 36.sp, fontWeight = FontWeight.Bold),
+            modifier = GlanceModifier.clickable(onClick = actionRunCallback<InteractiveAction>()),
+        )
+        Text(
+            message,
+            style = TextStyle(fontSize = 18.sp),
+            modifier =
+                GlanceModifier.clickable(
+                    onClick =
+                        actionStartActivity<MainActivity>(
+                            context,
+                            Uri.parse("homeWidgetExample://message?message=$message"),
+                        )
+                ),
+        )
+        imagePath?.let {
+          val bitmap = BitmapFactory.decodeFile(it)
+          Image(androidx.glance.ImageProvider(bitmap), null)
         }
+      }
+    }
   }
 }
 
@@ -88,11 +91,13 @@ class InteractiveAction : ActionCallback {
   override suspend fun onAction(
       context: Context,
       glanceId: GlanceId,
-      parameters: ActionParameters
+      parameters: ActionParameters,
   ) {
     val backgroundIntent =
         HomeWidgetBackgroundIntent.getBroadcast(
-            context, Uri.parse("homeWidgetExample://titleClicked"))
+            context,
+            Uri.parse("homeWidgetExample://titleClicked"),
+        )
     backgroundIntent.send()
   }
 }

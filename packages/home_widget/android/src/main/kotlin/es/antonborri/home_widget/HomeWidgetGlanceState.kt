@@ -1,9 +1,10 @@
+package es.antonborri.home_widget
+
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Environment
 import androidx.datastore.core.DataStore
 import androidx.glance.state.GlanceStateDefinition
-import es.antonborri.home_widget.HomeWidgetPlugin
 import java.io.File
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,7 +14,7 @@ class HomeWidgetGlanceState(val preferences: SharedPreferences)
 class HomeWidgetGlanceStateDefinition : GlanceStateDefinition<HomeWidgetGlanceState> {
   override suspend fun getDataStore(
       context: Context,
-      fileKey: String
+      fileKey: String,
   ): DataStore<HomeWidgetGlanceState> {
     val preferences =
         context.getSharedPreferences(HomeWidgetPlugin.PREFERENCES, Context.MODE_PRIVATE)

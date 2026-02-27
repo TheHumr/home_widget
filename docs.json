@@ -1,7 +1,14 @@
 {
   "name": "home_widget",
-  "theme": "##567acb",
-  "twitter": "abausg",
+  "theme": "#567acb",
+  "content": {
+    "headerDepth": 4
+  },
+  "social": {
+    "x": "@abausg",
+    "github": "abausg",
+    "linkedin": "/in/abausg"
+  },
   "sidebar": [
     [
       "Overview",
@@ -53,6 +60,10 @@
           "/features/analytics"
         ],
         [
+          "Configurable Widgets",
+          "/features/configurable-widgets"
+        ],
+        [
           "iOS Lock Screen Widgets",
           "/features/ios-lock-screen"
         ],
@@ -63,6 +74,19 @@
         [
           "Background Updates",
           "/features/background-updates"
+        ]
+      ]
+    ],
+    [
+      "Migrations",
+      [
+        [
+          "0.9.0",
+          "/migrations/0.9.0"
+        ],
+        [
+          "Swift Package Manager",
+          "/migrations/swift-package-manager"
         ]
       ]
     ],
@@ -79,7 +103,7 @@
         ],
         [
           "Render Flutter Widgets",
-          "/android-xml/render-flutter-widgets"
+          "/android-xml/render-flutter-widget"
         ],
         [
           "Interactive Widgets",

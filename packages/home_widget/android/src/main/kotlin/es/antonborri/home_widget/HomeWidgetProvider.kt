@@ -10,16 +10,32 @@ abstract class HomeWidgetProvider : AppWidgetProvider() {
   override fun onUpdate(
       context: Context,
       appWidgetManager: AppWidgetManager,
-      appWidgetIds: IntArray
+      appWidgetIds: IntArray,
   ) {
     super.onUpdate(context, appWidgetManager, appWidgetIds)
-    onUpdate(context, appWidgetManager, appWidgetIds, false)
+    val widgetData = HomeWidgetPlugin.getData(context)
+    onUpdate(context, appWidgetManager, appWidgetIds, widgetData, false)
   }
 
-  abstract fun onUpdate(
+  // Backward-compatible overload for existing providers overriding the old signature.
+  open fun onUpdate(
       context: Context,
       appWidgetManager: AppWidgetManager,
       appWidgetIds: IntArray,
-      isLoading: Boolean
-  )
+      isLoading: Boolean,
+  ) {
+    val widgetData = HomeWidgetPlugin.getData(context)
+    onUpdate(context, appWidgetManager, appWidgetIds, widgetData, isLoading)
+  }
+
+  // New signature used by providers that need direct widget data.
+  open fun onUpdate(
+      context: Context,
+      appWidgetManager: AppWidgetManager,
+      appWidgetIds: IntArray,
+      widgetData: SharedPreferences,
+      isLoading: Boolean,
+  ) {
+    onUpdate(context, appWidgetManager, appWidgetIds, isLoading)
+  }
 }

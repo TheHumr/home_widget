@@ -1,3 +1,32 @@
+## 0.9.0
+
+> Note: This release has breaking changes. See the [migration guide](https://docs.page/ABausG/home_widget/migrations/0.9.0) for details on how to migrate.
+
+ - **FIX**: Fix Xcode 26 support for interactive Widgets ([#391](https://github.com/abausg/home_widget/issues/391)). ([35047c6a](https://github.com/abausg/home_widget/commit/35047c6af5f2847652a51eb760c0d2ff70953259))
+ - **FIX**: Fix iOS Widget Updating using only `name` parameter ([#381](https://github.com/abausg/home_widget/issues/381)). ([77919dbb](https://github.com/abausg/home_widget/commit/77919dbb464c238149cb7662c9c8bfd47b7f11f9))
+ - **BREAKING** **FIX**: Add missing package name to HomeWidget Glance files ([#365](https://github.com/abausg/home_widget/issues/365)). ([caf6a1fe](https://github.com/abausg/home_widget/commit/caf6a1fe4d120b3b26b2b6d7aa1b008420790365))
+ - **BREAKING** **FEAT**: Add support for Swift Package Manager ([#393](https://github.com/abausg/home_widget/issues/393)). ([8d3c1ddf](https://github.com/abausg/home_widget/commit/8d3c1ddf4c7b383d4b2028160771828eb9a0033e))
+ - **BREAKING** **CHORE**: Upgrade to melos 7.0.0 ([#382](https://github.com/abausg/home_widget/issues/382)). ([66bffb17](https://github.com/abausg/home_widget/commit/66bffb17909890c3a70050488725d75c8aee46db))
+
+## 0.8.1
+
+ - **FIX**: Use WorkManager for Interactivity on Android. Improves reliability of clicks ([#361](https://github.com/abausg/home_widget/issues/361)). ([b25f8733](https://github.com/abausg/home_widget/commit/b25f87336913844d92ba6484c3516680beb6a3a2))
+
+## 0.8.0
+
+> Note: This release has breaking changes.
+
+ - **FEAT**: Configurable WIdgets support for iOS ([#348](https://github.com/abausg/home_widget/issues/348)). ([e8809d89](https://github.com/abausg/home_widget/commit/e8809d89c15348cb3ded7769278add51ce4b2379))
+ - **FEAT**: Add triggeredFromHomeWidget flag to updateWidget on Android ([#315](https://github.com/abausg/home_widget/issues/315)). ([dc2b9302](https://github.com/abausg/home_widget/commit/dc2b9302c30e6690f1f084e4fad2b1041a1d8c88))
+ - **BREAKING** **FEAT**: Default to the device pixel ratio ([#304](https://github.com/abausg/home_widget/issues/304)). ([90522de3](https://github.com/abausg/home_widget/commit/90522de374d5411842e84031453756eeec25ac9e))
+ - **BREAKING** **CHORE**: Enable strong language analyzer ([#305](https://github.com/abausg/home_widget/issues/305)). ([1b5df0b3](https://github.com/abausg/home_widget/commit/1b5df0b36e0ccf0c0ffef234faf0ed8731f9ade4))
+
+## 0.7.0+1
+
+ - **FIX**: Runtime error when starting App from Widget on Android 15 ([#330](https://github.com/abausg/home_widget/issues/330)). ([64a38eb3](https://github.com/abausg/home_widget/commit/64a38eb39fb6ef20342ac2a5eaf5c9bedf2e6c75))
+ - **DOCS**: Move Documentation to docs.page ([#287](https://github.com/abausg/home_widget/issues/287)). ([52ee746a](https://github.com/abausg/home_widget/commit/52ee746ad1d1dd9ef2aa9f1c61e482825f73d9d9))
+ - **DOCS**: Improve pubspec metadata ([#283](https://github.com/abausg/home_widget/issues/283)). ([f23c63e8](https://github.com/abausg/home_widget/commit/f23c63e8d393708aaf197ccb54b391d81a765a19))
+
 ## 0.7.0
 
  - **DOCS**: Move Documentation to docs.page ([#287](https://github.com/abausg/home_widget/issues/287)). ([52ee746a](https://github.com/abausg/home_widget/commit/52ee746ad1d1dd9ef2aa9f1c61e482825f73d9d9))
